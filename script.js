@@ -139,9 +139,12 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 
-// JavaScript function to handle logout
+// Redirection Functions
 function logout() {
     window.location.href = 'includes/logout.php';  // Redirect to logout script
+}
+function accountsettings() {
+    window.location.href = 'includes/accountsettings.php';  // Redirect to account settings script
 }
 
 // Functions to open/close login forms

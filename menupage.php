@@ -86,7 +86,7 @@ $user = $_SESSION['user'];
             margin-left: auto;
             margin-right: auto;
             margin-bottom: 100px;
-            
+
         }
 
         .other_products_table {
@@ -128,6 +128,7 @@ $user = $_SESSION['user'];
             text-align: right;
             cursor: pointer;
         }
+
         .menu #cartButton {
             border-color: #fff;
             background-color: #f59e07;
@@ -137,8 +138,9 @@ $user = $_SESSION['user'];
             padding-bottom: 10px;
             margin-left: 95%;
             border-radius: 10px;
-            
+
         }
+
         #cartTotalQuantity {
             align-items: flex-end;
             margin-left: 5px;
@@ -147,9 +149,11 @@ $user = $_SESSION['user'];
             background-color: red;
             padding: 10px;
         }
+
         .cart-menu {
             margin-bottom: 20px;
         }
+
         .cart-menu h3 {
             text-align: center;
             border-style: solid;
@@ -159,6 +163,7 @@ $user = $_SESSION['user'];
             padding-bottom: 10px;
             border-radius: 10px;
         }
+
         .sidebar--footer {
             position: absolute;
             bottom: 20px;
@@ -167,7 +172,8 @@ $user = $_SESSION['user'];
             text-align: center;
             font-size: 25px;
         }
-        .cart-item span{
+
+        .cart-item span {
             color: white;
             padding-right: 10px;
             font-size: 25px;
@@ -193,38 +199,51 @@ $user = $_SESSION['user'];
             text-align: center;
             display: inline;
         }
+
         h2 {
             text-align: center;
         }
+
         h4 {
             margin-left: 80%;
         }
 
-        #logout {
-            display: inline-block;
-            margin-left: 80%;
+        .nav-button-container {
+            display: flex;
+            /* Use flexbox to align elements in a row */
+            justify-content: flex-end;
+            /* Aligns items to the end (right side) */
+            gap: 10px;
+            /* Space between buttons */
+            padding-right: 20px;
+            /* Additional padding to the right, if needed */
+        }
+
+        .navButton {
             color: #fff;
             border-radius: 10px;
             padding: 10px;
-            border-color: #f59e07;
+            border: 1px solid #f59e07;
             background-color: #f59e07;
             cursor: pointer;
         }
-        
     </style>
 
 </head>
 
 <body>
-<!-- Display user's first name -->
-<h1>Welcome, <?php echo $user['first_name']; ?></h1>
+    <!-- Display user's first name -->
+    <h1>Welcome, <?php echo $user['first_name']; ?></h1>
+    <div class="nav-button-container">
+        <button id="AccountSettings" onclick="accountsettings()" class="navButton">Account</button>
+        <button id="logout" onclick="logout()" class="navButton">Logout</button>
+    </div>
 
-<button id="logout" onclick="logout()">Logout</button>
 
-<div class="menu" id="Menu">
+    <div class="menu" id="Menu">
         <h2>Shopping<span> Cart</span></h2>
         <button id="cartButton">Cart<sup id="cartTotalQuantity">0</sup>
-</button>
+        </button>
         <div class="menu_box">
             <?php
             require_once 'includes/images.php';
@@ -243,7 +262,8 @@ $user = $_SESSION['user'];
                                 <div class="menu_info">
                                     <h2><?php echo $row['name']; ?></h2>
                                     <span><?php echo $row['price']; ?> PHP</span><br><br>
-                                    <a class="menu_btn add-to-cart" data-name="<?php echo $row['name']; ?>" data-price="<?php echo $row['price']; ?>">Add to cart</a>
+                                    <a class="menu_btn add-to-cart" data-name="<?php echo $row['name']; ?>"
+                                        data-price="<?php echo $row['price']; ?>">Add to cart</a>
                                 </div>
                             </div>
                         <?php endif; ?>
@@ -267,7 +287,8 @@ $user = $_SESSION['user'];
                                         <td><?php echo $row['name']; ?></td>
                                         <td><?php echo $row['price']; ?></td>
                                         <td>
-                                            <a class="menu_btn add-to-cart" data-name="<?php echo $row['name']; ?>" data-price="<?php echo $row['price']; ?>">Add to cart</a>
+                                            <a class="menu_btn add-to-cart" data-name="<?php echo $row['name']; ?>"
+                                                data-price="<?php echo $row['price']; ?>">Add to cart</a>
                                         </td>
                                     </tr>
                                 <?php endif; ?>

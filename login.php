@@ -55,12 +55,20 @@
 
 <body>
     <div class="login-container">
+    <?php
+session_start();
+
+// Check for error message in session
+if (isset($_SESSION['error'])) {
+    $error = $_SESSION['error'];
+    echo "<script>alert('$error');</script>";
+    // Clear the error message from session after displaying
+    unset($_SESSION['error']);
+}
+?>
         <div id="login-form" class="login-form" style="display:none;">
             <form action="includes/login.inc.php" method="post">
                 <h2>Login</h2>
-                <?php if (isset($_GET['error'])) { ?>
-                    <p class="error"><?php echo $_GET['error']; ?></p>
-                <?php } ?>
                 <input type="text" name="email" placeholder="Email" required><br>
                 <input type="password" name="password" placeholder="Password" required><br>
                 <button type="submit">Login</button>

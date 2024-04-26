@@ -2,12 +2,10 @@
 session_start();
 require_once 'dbh.inc.php';
 
-// Check if username and password are provided
-if(isset($_POST['email']) && isset($_POST['password'])) {
     $email = $_POST['email'];
     $password = $_POST['password'];
 
-    // Query to check if username exists
+    // Query to check if email exists
     $stmt = $pdo->prepare("SELECT * FROM customers WHERE email = ?");
     $stmt->execute([$email]);
     $user = $stmt->fetch();
@@ -19,13 +17,9 @@ if(isset($_POST['email']) && isset($_POST['password'])) {
         header("Location: ../menupage.php");
         exit();
     } else {
-        // User not found or incorrect password, redirect back to login page with error message
-        header("Location: ../login.php?error=Incorrect Email or password");
+        // Incorrect email or password, use JavaScript alert and history.back()
+        $error = 'Incorrect Email or password';
+        echo "<script>alert('$error'); history.back();</script>";
         exit();
     }
-} else {
-    // Redirect back to login page if username or password is not provided
-    header("Location: ../login.php?error=Username and password are required");
-    exit();
-}
 
