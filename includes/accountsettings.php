@@ -92,7 +92,7 @@
                     $query = "SELECT 
                     o.order_id,
                     o.order_date,
-                    o.total_price,
+                    p.price * od.quantity AS price,
                     o.status,
                     p.name AS product_name,
                     od.quantity
@@ -114,7 +114,7 @@
                     <tr>
                         <td>{$row['order_id']}</td>
                         <td>{$row['order_date']}</td>
-                        <td>{$row['total_price']} PHP</td>
+                        <td>{$row['price']} PHP</td>
                         <td>{$row['status']}</td>
                         <td>{$row['product_name']}</td>
                         <td>{$row['quantity']}</td>

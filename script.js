@@ -133,6 +133,44 @@ document.addEventListener("DOMContentLoaded", function () {
     sidebarClose.addEventListener('click', () => {
         sidebar.style.display = 'none';
     });
+    document.querySelector('.checkout-btn').addEventListener('click', function() {
+        // Get cart items and total price
+        const cartItems = Array.from(document.querySelectorAll('.cart-item'));
+        const total = document.querySelector('.cart-total').textContent;
+    
+        // Prepare data to be sent
+        const orderData = {
+            totalPrice: parseFloat(total.replace('₱', '')),
+            items: cartItems.map(item => ({
+                name: item.getAttribute('data-name'),
+                quantity: parseInt(item.querySelector('input[type="number"]').value)
+            }))
+        };
+    
+        // Send data via AJAX to the PHP script
+        fetch('includes/checkout.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(orderData)
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert('Order placed successfully!');
+                // Optionally, clear the cart and reset UI
+                document.querySelector('.cart-items').innerHTML = '';
+                document.querySelector('.cart-total').textContent = '₱0.00';
+                document.querySelector('#cartTotalQuantity').textContent = '0';
+                document.getElementById('sidebar').style.display = 'none'; // Close the sidebar
+            } else {
+                alert('Error placing order: ' + data.message);
+            }
+        })
+        .catch(err => console.error('Error:', err));
+    });
+    
 
     updateCartTotal();  // Initialize the total price
     updateCartQuantity();  // Initialize the superscript
