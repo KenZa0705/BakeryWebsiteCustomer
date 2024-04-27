@@ -176,6 +176,27 @@ document.addEventListener("DOMContentLoaded", function () {
     updateCartQuantity();  // Initialize the superscript
 });
 
+// Cancelling order
+function confirmCancelOrder(orderId) {
+    // Confirm with the user if they really want to cancel the order
+    if (confirm("Are you sure you want to cancel order " + orderId + "?")) {
+        // If confirmed, perform an AJAX call to cancel the order
+        fetch('cancel_order.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            body: 'order_id=' + orderId
+        })
+        .then(response => response.text())
+        .then(data => {
+            alert(data); // Notify user about the cancellation result
+            // Reload the cancelable orders table
+            window.location.reload();
+        })
+        .catch(error => console.error('Error:', error));
+    }
+}
 
 // Redirection Functions
 function logout() {

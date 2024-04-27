@@ -92,6 +92,7 @@ $user = $_SESSION['user'];
         .other_products_table {
             width: 100%;
             border-collapse: collapse;
+            text-align: center;
         }
 
         .other_products_thead th,
@@ -198,6 +199,8 @@ $user = $_SESSION['user'];
         h1 {
             text-align: center;
             display: inline;
+            
+            background-color: #f59e07;
         }
 
         h2 {
@@ -236,7 +239,7 @@ $user = $_SESSION['user'];
     <h1>Welcome, <?php echo $user['first_name']; ?></h1>
     <div class="nav-button-container">
         <button id="AccountSettings" onclick="accountsettings()" class="navButton">Account</button>
-        <button id="logout" onclick="logout()" class="navButton">Logout</button>
+        <a href="includes/logout.php" id="logout" onclick="promptMessage('Logged Out Successfully')" class="navButton">Logout</a>
     </div>
 
 
@@ -263,7 +266,8 @@ $user = $_SESSION['user'];
                                     <h2><?php echo $row['name']; ?></h2>
                                     <span><?php echo $row['price']; ?> PHP</span><br><br>
                                     <a class="menu_btn add-to-cart" data-name="<?php echo $row['name']; ?>"
-                                        data-price="<?php echo $row['price']; ?>">Add to cart</a>
+                                        data-price="<?php echo $row['price']; ?>">Add to cart</a><br>
+                                    <span>Available Stocks: <?php echo $row['quantity_available']; ?></span>
                                 </div>
                             </div>
                         <?php endif; ?>
@@ -278,6 +282,7 @@ $user = $_SESSION['user'];
                                 <th>Name</th>
                                 <th>Price</th>
                                 <th>Action</th>
+                                <th>Available Stocks</th>
                             </tr>
                         </thead>
                         <tbody class="other_products_tbody">
@@ -290,6 +295,7 @@ $user = $_SESSION['user'];
                                             <a class="menu_btn add-to-cart" data-name="<?php echo $row['name']; ?>"
                                                 data-price="<?php echo $row['price']; ?>">Add to cart</a>
                                         </td>
+                                        <td><?php echo $row['quantity_available']; ?></td>
                                     </tr>
                                 <?php endif; ?>
                             <?php endforeach; ?>
