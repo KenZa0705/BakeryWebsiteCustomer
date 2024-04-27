@@ -68,14 +68,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $_SESSION['user'] = $updated_customer;
 
         echo "Customer updated successfully.";
-        header('Location: ../menupage.php');
+        header('Location: accountsettings.php');
     } else {
         echo "No changes were made.";
-        header('../menupage.php');
+        header('accountsettings.php');
     }
 
 } else {
     // Redirect to the update form if accessed directly without POST data
-    header("Location: ../menupage.php");
+    header("Location: accountsettings.php");
     exit;
 }

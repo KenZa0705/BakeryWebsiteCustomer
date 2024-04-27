@@ -31,4 +31,3 @@ try {
     // Handle any errors
     die("Error: " . $e->getMessage());
 }
-?>
