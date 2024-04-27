@@ -321,13 +321,6 @@
         </div>
         
     </div>
-    
-    <button onclick="openBox('test')">click me</button>
-    <div id="test" style="display: none;">
-        <button onclick="closeBox('test')">close me</button>
-
-        <p>I will show</p>
-    </div>
     <script src="script.js"></script>
 
 </body>

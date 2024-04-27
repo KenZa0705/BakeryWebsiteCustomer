@@ -25,7 +25,7 @@ $user = $_SESSION['user'];
 <section>
     <nav>
         <ul>
-            <li>Update Account</li>
+            <li><a href="../landingpage.php">Update Account</a></li>
             <li>View Orders</li>
             <li><a href="../menupage.php">Shopping Cart</a></li>
             <li><a href="logout.php">Log out</a></li>
