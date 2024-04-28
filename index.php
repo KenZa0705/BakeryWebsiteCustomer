@@ -104,7 +104,7 @@
                         it is the Filipinos ultimate tinapay a staple during breakfast,
                         it’s the cash cow of all bakeries.
                     </p>
-                    <h3>₱5.00</h3>
+                    <h3>₱2.00</h3>
                     <div class="menu_icon">
                     </div>
                     <a href="#Order" class="menu_btn">Order Now</a>
@@ -124,7 +124,7 @@
                         The Filipino style sliced bread, usually eaten for breakfast or as a snack,
                         filipinos love pairing it with cheese, jam or peanut butter.
                     </p>
-                    <h3>₱5.00</h3>
+                    <h3>₱75.00</h3>
                     <div class="menu_icon">
                     </div>
                     <a href="#Order" class="menu_btn">Order Now</a>
@@ -184,7 +184,7 @@
                     <p>
                         This is a sweet bread that is prepared like a muffin.
                     </p>
-                    <h3>₱5.00</h3>
+                    <h3>₱2.00</h3>
                     <div class="menu_icon">
                     </div>
                     <a href="#Order" class="menu_btn">Order Now</a>
@@ -266,10 +266,6 @@
             <form action="includes/login.inc.php" method="post">
                 <span onclick="closeBox('login-form')" class="close">X</span>
                 <h2 style="display: inline">Login</h2>
-                
-                <?php if (isset($_GET['error'])) { ?>
-                    <p class="error"><?php echo $_GET['error']; ?></p>
-                <?php } ?>
                 <input type="text" name="email" placeholder="Email" required><br>
                 <input type="password" name="password" placeholder="Password" required><br>
                 <button type="submit">Login</button>

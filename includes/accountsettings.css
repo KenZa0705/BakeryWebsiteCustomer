@@ -1,145 +1,207 @@
+/* Variables for Common Colors */
+:root {
+  --primary-color: #e28743;
+  --secondary-color: #885128;
+  --link-color: #007bff;
+  --hover-link-color: #0056b3;
+  --danger-color: #dc3545;
+  --background-color: white;
+}
+
 /* General Styling */
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f5f5f5;
-  }
-  
-  h1, h2 {
-    color: #333;
-  }
-  
-  a {
-    text-decoration: none;
-    color: #007bff;
-  }
-  
-  a:hover {
-    text-decoration: underline;
-  }
-  
-  /* Navigation Section */
-  nav {
-    background-color: #333;
-    padding: 10px;
-  }
-  
+body, html {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background: var(--background-color);
+}
+
+/* Headings */
+h1, h2 {
+  margin-top: 10px;
+  color: var(--primary-color);
+  text-align: center;
+  border-radius: 5px;
+  border: 5px solid var(--secondary-color);
+  padding: 10px;
+  background: white;
+  width: max-content;
+}
+
+/* Links */
+a {
+  color: var(--link-color);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+  color: var(--hover-link-color);
+}
+
+/* Navigation Section */
+nav {
+  background-color: var(--secondary-color);
+  border-radius: 10px;
+  padding: 10px;
+}
+
+nav ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  justify-content: space-around;
+}
+
+nav li {
+  background-color: var(--primary-color);
+  border-radius: 5px;
+  padding: 10px;
+  margin: 10px;
+}
+
+nav a {
+  color: white;
+  font-size: 16px;
+}
+
+nav a:hover {
+  color: #ccc;
+  cursor: pointer;
+}
+
+/* Account and Orders Sections */
+.updateAccount_Div,
+.viewOrders,
+.cancelOrders {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: var(--secondary-color);
+  border: 10px solid var(--background-color);
+  padding: 20px;
+  z-index: 1000;
+  box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+}
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+}
+
+.UpdateAccount-title, .viewOrders-title{
+  font-size: 25px;
+}
+.updateAccount-content,
+.orders-content {
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.updateAccount-content input {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.updateAccount-content button {
+  padding: 10px;
+  background-color: var(--link-color);
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.updateAccount-content button:hover {
+  background-color: var(--hover-link-color);
+}
+
+/* Orders Table Styling */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: var(--primary-color);
+  border: 1px solid white;
+  color: white;
+}
+
+th {
+  background-color: var(--secondary-color);
+  padding: 12px;
+}
+
+td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+tr:hover {
+  background-color: var(--secondary-color);
+}
+
+/* Overflow Handling */
+.orders-content {
+  max-height: 70vh;
+  overflow-y: auto;
+}
+
+/* Cancel Button */
+.cancelButton {
+  padding: 10px;
+  background-color: var(--danger-color);
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.cancelButton:hover {
+  background-color: #c82333;
+}
+
+/* Background Image for Sections */
+.background-above-nav {
+  background-image: url('../image/bg.jpg');
+  background-size: cover;
+  background-position: center;
+  height: 200px;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.background-below-nav {
+  background-image: url('../image/bg.jpg');
+  background-size: cover;
+  background-position: bottom;
+  height: 65vh;
+  width: 100%;
+}
+
+/* Responsiveness */
+@media (max-width: 768px) {
   nav ul {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    justify-content: space-around;
+    flex-direction: column;
   }
-  
+
   nav li {
-    display: inline;
+    margin: 5px;
   }
-  
-  nav a {
-    color: white;
-    font-size: 16px;
-  }
-  
-  nav a:hover {
-    color: #ccc;
-  }
-  
-  /* Update Account and Orders Sections */
+
   .updateAccount_Div,
   .viewOrders,
   .cancelOrders {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: white;
-    border: 1px solid #ccc;
-    padding: 20px;
-    z-index: 1000;
-    box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.2);
-    display: none; /* Initially hidden */
+    width: 90%;
   }
-  
-  .close {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-    cursor: pointer;
-  }
-  
-  .close:hover,
-  .close:focus {
-    color: black;
-  }
-  
-  .updateAccount-content,
-  .orders-content {
-    padding: 20px;
-  }
-  
-  .updateAccount-content label,
-  .updateAccount-content input,
-  .orders-content table {
-    font-size: 16px;
-  }
-  
-  .updateAccount-content input {
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-  }
-  
-  .updateAccount-content button {
-    padding: 10px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    cursor: pointer;
-  }
-  
-  .updateAccount-content button:hover {
-    background-color: #0056b3;
-  }
-  
-  /* Orders Table Styling */
-  table {
-    width: 100%;
-    border-collapse: collapse;
-  }
-  
-  th,
-  td {
-    padding: 12px;
-    text-align: left;
-    border-bottom: 1px solid #ddd;
-  }
-  
-  th {
-    background-color: #f2f2f2;
-  }
-  
-  tr:hover {
-    background-color: #f5f5f5;
-  }
-  
-  /* Adjustments for Overflow and Height Limitations */
-  .orders-content {
-    max-height: 70vh; /* Set a maximum height to the content to prevent it from swallowing the entire screen */
-    overflow-y: auto; /* Enable vertical scrolling when content exceeds the height */
-  }
-  
-  .cancelButton {
-    padding: 10px;
-    background-color: #dc3545;
-    color: white;
-    border: none;
-    cursor: pointer;
-  }
-  
-  .cancelButton:hover {
-    background-color: #c82333;
-  }
-  
+}

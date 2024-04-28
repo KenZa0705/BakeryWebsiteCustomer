@@ -37,11 +37,10 @@ $customer = $stmt->fetch(PDO::FETCH_ASSOC);
 </head>
 
 <body>
-
-
+<div class="background-above-nav">
     <h1>Account Settings</h1>
     <h2>Welcome! <?php echo $firstName; ?></h2>
-    <section>
+</div>
         <nav>
             <ul>
                 <li><a onclick="openBox('updateAccountDiv')" class="updateButton">Update</a></li>
@@ -50,7 +49,7 @@ $customer = $stmt->fetch(PDO::FETCH_ASSOC);
                 <li><a href="logout.php" onclick="promptMessage('Logged Out Successfully')">Log out</a></li>
             </ul>
         </nav>
-    </section>
+    <div class="background-below-nav">
     <div id="updateAccountDiv" class="updateAccount_Div" style="display: none">
         <div class="update-content">
             <span class="close" onclick="closeBox('updateAccountDiv');">&times;</span>
@@ -168,7 +167,7 @@ $customer = $stmt->fetch(PDO::FETCH_ASSOC);
                 orders AS o ON od.order_id = o.order_id
               JOIN 
                 products AS p ON od.product_id = p.product_id
-              WHERE customer_id = :customer_id AND o.status = 'Processing'
+              WHERE o.status = 'Processing' AND customer_id = :customer_id
               ORDER BY order_id DESC;
                         ";
                     $cancelable_orders = $pdo->prepare($query);
@@ -185,7 +184,7 @@ $customer = $stmt->fetch(PDO::FETCH_ASSOC);
                         <td>{$row['status']}</td>
                         <td>{$row['product_name']}</td>
                         <td>{$row['quantity']}</td>
-                        <td><button onclick=\"confirmCancelOrder('{$row['order_id']}')\">Cancel</button></td>
+                        <td><button onclick=\"confirmCancelOrder('{$row['order_id']}','{$row['product_name']}','{$row['quantity']}')\">Cancel</button></td>
                     </tr>";
                     }
 
@@ -197,7 +196,7 @@ $customer = $stmt->fetch(PDO::FETCH_ASSOC);
             </table>
         </div>
     </div>
-
+    </div>
     <script src="../script.js"></script>
 </body>
 

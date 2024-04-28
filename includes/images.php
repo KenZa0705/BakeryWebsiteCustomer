@@ -3,7 +3,7 @@
 require_once 'dbh.inc.php';
 
 // Query to fetch data from your database
-$query = "SELECT name, price, quantity_available FROM products";
+$query = "SELECT name, price, quantity_available FROM products ORDER BY quantity_available DESC";
 
 // Define an array of image paths corresponding to each product
 $imagePaths = [
