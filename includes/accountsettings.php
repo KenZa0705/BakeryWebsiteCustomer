@@ -8,7 +8,7 @@ if (!isset($_SESSION['user'])) {
     exit();
 }
 
-// Retrieve user's information from session
+//Get user info
 $user = $_SESSION['user'];
 $customer_id = $_SESSION['user']['customer_id'];
 $firstName = $_SESSION['user']['first_name'];
@@ -18,8 +18,7 @@ $phone = $_SESSION['user']['phone'];
 $address = $_SESSION['user']['address'];
 
 require_once 'dbh.inc.php';
-
-// Check if the product ID exists in the database
+//get cust info
 $query = "SELECT * FROM customers WHERE customer_id = :customer_id";
 $stmt = $pdo->prepare($query);
 $stmt->bindParam(':customer_id', $customer_id);
@@ -94,36 +93,27 @@ $customer = $stmt->fetch(PDO::FETCH_ASSOC);
                 require_once 'dbh.inc.php';
 
                 try {
-                    $query = "SELECT 
-                    o.order_id,
-                    o.order_date,
-                    p.price * od.quantity AS price,
-                    o.status,
-                    p.name AS product_name,
-                    od.quantity
-                  FROM 
-                    order_details AS od
-                  JOIN 
-                    orders AS o ON od.order_id = o.order_id
-                  JOIN 
-                    products AS p ON od.product_id = p.product_id
+                    $query = "SELECT o.order_id,o.order_date,p.price * od.quantity AS price,
+                    o.status,p.name AS product_name,od.quantity
+                  FROM order_details AS od
+                  JOIN orders AS o ON od.order_id = o.order_id
+                  JOIN products AS p ON od.product_id = p.product_id
                   WHERE customer_id = :customer_id
-                  ORDER BY order_id DESC;
-                            ";
+                  ORDER BY order_id DESC;";
                     $orders = $pdo->prepare($query);
                     $orders->bindParam(':customer_id', $customer_id);
                     $orders->execute();
                     $orders = $orders->fetchAll(PDO::FETCH_ASSOC);
                     foreach ($orders as $row) {
                         echo "
-                    <tr>
-                        <td>{$row['order_id']}</td>
-                        <td>{$row['order_date']}</td>
-                        <td>{$row['price']} PHP</td>
-                        <td>{$row['status']}</td>
-                        <td>{$row['product_name']}</td>
-                        <td>{$row['quantity']}</td>
-                    </tr>";
+                            <tr>
+                                <td>{$row['order_id']}</td>
+                                <td>{$row['order_date']}</td>
+                                <td>{$row['price']} PHP</td>
+                                <td>{$row['status']}</td>
+                                <td>{$row['product_name']}</td>
+                                <td>{$row['quantity']}</td>
+                            </tr>";
                     }
 
                 } catch (PDOException $e) {
@@ -132,7 +122,6 @@ $customer = $stmt->fetch(PDO::FETCH_ASSOC);
 
                 ?>
             </table>
-
         </div>
     </div>
     <div id="cancelOrders" class="cancelOrders" style="display: none;">
@@ -154,22 +143,13 @@ $customer = $stmt->fetch(PDO::FETCH_ASSOC);
 
                 try {
                     // Fetch orders with "Processing" status
-                    $query = "SELECT 
-                o.order_id,
-                o.order_date,
-                p.price * od.quantity AS price,
-                o.status,
-                p.name AS product_name,
-                od.quantity
-              FROM 
-                order_details AS od
-              JOIN 
-                orders AS o ON od.order_id = o.order_id
-              JOIN 
-                products AS p ON od.product_id = p.product_id
-              WHERE o.status = 'Processing' AND customer_id = :customer_id
-              ORDER BY order_id DESC;
-                        ";
+                    $query = "SELECT o.order_id, o.order_date, p.price * od.quantity AS price, o.status, 
+                                p.name AS product_name, od.quantity
+                                FROM order_details AS od
+                                JOIN orders AS o ON od.order_id = o.order_id
+                                JOIN products AS p ON od.product_id = p.product_id
+                                WHERE o.status = 'Processing' AND customer_id = :customer_id
+                                ORDER BY order_id DESC;";
                     $cancelable_orders = $pdo->prepare($query);
                     $cancelable_orders->bindParam(':customer_id', $customer_id);
                     $cancelable_orders->execute();
@@ -177,15 +157,15 @@ $customer = $stmt->fetch(PDO::FETCH_ASSOC);
 
                     foreach ($cancelable_orders as $row) {
                         echo "
-                    <tr>
-                        <td>{$row['order_id']}</td>
-                        <td>{$row['order_date']}</td>
-                        <td>{$row['price']} PHP</td>
-                        <td>{$row['status']}</td>
-                        <td>{$row['product_name']}</td>
-                        <td>{$row['quantity']}</td>
-                        <td><button onclick=\"confirmCancelOrder('{$row['order_id']}','{$row['product_name']}','{$row['quantity']}')\">Cancel</button></td>
-                    </tr>";
+                            <tr>
+                                <td>{$row['order_id']}</td>
+                                <td>{$row['order_date']}</td>
+                                <td>{$row['price']} PHP</td>
+                                <td>{$row['status']}</td>
+                                <td>{$row['product_name']}</td>
+                                <td>{$row['quantity']}</td>
+                                <td><button onclick=\"confirmCancelOrder('{$row['order_id']}','{$row['product_name']}','{$row['quantity']}')\">Cancel</button></td>
+                            </tr>";
                     }
 
                 } catch (PDOException $e) {

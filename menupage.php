@@ -1,14 +1,10 @@
 <?php
 session_start();
-
-// Check if user is logged in
 if (!isset($_SESSION['user'])) {
-    // If not logged in, redirect to login page
     header("Location: login.php");
     exit();
 }
 
-// Retrieve user's information from session
 $user = $_SESSION['user'];
 ?>
 <!DOCTYPE html>
@@ -23,7 +19,7 @@ $user = $_SESSION['user'];
 </head>
 
 <body>
-    <!-- Display user's first name -->
+    <!--Welcome Message, Header -->
     <h1>Welcome, <?php echo $user['first_name']; ?></h1>
     <div class="nav-button-container">
         <button id="AccountSettings" onclick="accountsettings()" class="navButton">Account</button>
@@ -31,7 +27,7 @@ $user = $_SESSION['user'];
             class="navButton">Logout</a>
     </div>
 
-
+    <!-- Menu -->
     <div class="menu" id="Menu">
         <h2>Shopping<span> Cart</span></h2>
         <button id="cartButton"><img src="image/cart.png" alt="cart" class="cart"><sup id="cartTotalQuantity">0</sup>
@@ -44,7 +40,6 @@ $user = $_SESSION['user'];
                 <h2>Best Selling Products</h2>
                 <!-- Table for products with images -->
                 <h4><a href="#other_products">Check out our other amazing products</a></h4>
-                <!-- Updated PHP for product display with stock check -->
                 <div class="product-container">
                     <?php foreach ($results as $row): ?>
                         <?php if (isset($imagePaths[$row['name']])): ?>
@@ -55,7 +50,6 @@ $user = $_SESSION['user'];
                                 <div class="menu_info">
                                     <h2><?php echo $row['name']; ?></h2>
                                     <span><?php echo $row['price']; ?> PHP</span><br><br>
-                                    <!-- Data attributes for name, price, and available stock -->
                                     <a class="menu_btn add-to-cart" data-name="<?php echo $row['name']; ?>"
                                         data-price="<?php echo $row['price']; ?>"
                                         data-quantity-available="<?php echo $row['quantity_available']; ?>">
@@ -68,7 +62,7 @@ $user = $_SESSION['user'];
                     <?php endforeach; ?>
                 </div>
 
-                <!-- Table for products without images -->
+                <!-- table for other products -->
                 <h2 id="other_products">Other Amazing Products</h2>
                 <div class="other_products_table_wrapper">
                     <table class="other_products_table">

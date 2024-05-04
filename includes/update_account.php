@@ -1,14 +1,14 @@
 <?php
 require_once 'dbh.inc.php';
-
+session_start();
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $customer_id = $_POST['customer_id'];
-    $firstName = $_POST['firstName'];
-    $lastName = $_POST['lastName'];
-    $email = $_POST['email'];
-    $phone = $_POST['phone'];
-    $address = $_POST['address'];
-    $password = $_POST['password'];
+    $customer_id = $_SESSION['user']['customer_id'];
+    $firstName = $_SESSION['$user']['first_name'];
+    $lastName = $_SESSION['$user']['last_name'];
+    $email = $_SESSION['$user']['email'];
+    $phone = $_SESSION['$user']['phone'];
+    $address = $_SESSION['$user']['address'];
+    $password = $_SESSION['$user']['password'];
     // Retrieve the current product details from the database
     $query = "SELECT * FROM customers WHERE customer_id = :customer_id";
     $stmt = $pdo->prepare($query);
@@ -64,7 +64,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $updated_customer = $stmt->fetch(PDO::FETCH_ASSOC);
 
         // Update the session with the new customer data
-        session_start();
+        
         $_SESSION['user'] = $updated_customer;
 
         echo "Customer updated successfully.";

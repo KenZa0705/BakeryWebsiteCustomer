@@ -1,4 +1,3 @@
-
 <?php
 require_once 'dbh.inc.php';
 
@@ -12,26 +11,26 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $address = $_POST["address"];
 
     try {
-        // Prepare SQL statement
+        // Begin transaction
+        $pdo->beginTransaction();
+        // Insert the data to customers table
         $query = "INSERT INTO customers (first_name, last_name, phone, email, password, address) VALUES (?, ?, ?, ?, ?, ?);";
         $stmt = $pdo->prepare($query);
-
-        // Execute SQL statement
+        // run query
         $stmt->execute([$fname, $lname, $number, $email, $password, $address]);
-
-        // Redirect after successful insertion
-
+        // Commit the transaction
+        $pdo->commit();
         header("Location: ../index.php?accountcreation=success#Order");
         exit();
     } catch (PDOException $e) {
+        // Rollback the transaction if an error occurs
+        $pdo->rollBack();
         // Redirect with error message
         header("Location: ../index.php?error=query_failed#Order");
         exit();
     }
-
 } else {
-    // Redirect if not a POST request
     header("Location: ../index.php");
     exit();
 }
-?>
+
